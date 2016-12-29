@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -55,9 +56,7 @@ namespace QuietOnTheSetUI
         private void UpdateFooter()
         {
             var version = Assembly.GetExecutingAssembly().GetName().Version;
-            DateTime buildDate = new DateTime(2000, 1, 1)
-                .AddDays(version.Build)
-                .AddSeconds(version.Revision * 2);
+            DateTime buildDate = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
 
             footerLabel.Text = $"v{version} was built {buildDate.ToString("g")}";
         }
