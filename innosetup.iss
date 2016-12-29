@@ -15,7 +15,7 @@
 AppId={{D8E93A01-DF6D-4B13-987B-986D26FE020F}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -25,6 +25,7 @@ DisableProgramGroupPage=yes
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=yes
+InfoBeforeFile=H:\dev\github\troylar\quiet-on-the-set\LICENSE
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
