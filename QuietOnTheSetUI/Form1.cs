@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,10 +25,10 @@ namespace QuietOnTheSetUI
         public Form1()
         {
             InitializeComponent();
-            Bitmap applicationIcon = QuietOnTheSetUI.Properties.Resources.appicon;
-            this.Icon = Icon.FromHandle(applicationIcon.GetHicon());
+            //            Bitmap applicationIcon = QuietOnTheSetUI.Properties.Resources.appicon;
+            this.Icon = QuietOnTheSetUI.Properties.Resources.appicon;
             mmDevice = MMDE.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            notifyIcon1.Icon = Icon.FromHandle(applicationIcon.GetHicon());
+            notifyIcon1.Icon = QuietOnTheSetUI.Properties.Resources.appicon;
             volumeTrackBar.ValueChanged += VolumeTrackBar_ValueChanged;
             mmDevice.AudioEndpointVolume.OnVolumeNotification += AudioEndpointVolume_OnVolumeNotification;
             _maxVolume = Convert.ToInt16(Properties.Settings.Default["MaxVolume"]);
@@ -47,6 +48,18 @@ namespace QuietOnTheSetUI
 
             this.FormClosing += Form1_FormClosing;
             this.Resize += Form1_Resize;
+
+            UpdateFooter();
+        }
+
+        private void UpdateFooter()
+        {
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            DateTime buildDate = new DateTime(2000, 1, 1)
+                .AddDays(version.Build)
+                .AddSeconds(version.Revision * 2);
+
+            footerLabel.Text = $"v{version} was built {buildDate.ToString("g")}";
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -90,7 +103,8 @@ namespace QuietOnTheSetUI
             _password = passwordTextBox.Text;
             passwordTextBox.Text = string.Empty;
             confirmPasswordTextBox.Text = string.Empty;
-            notifyIcon1.BalloonTipText = $"Maximum volume locked at {volumeTrackBar.Value}";
+            notifyIcon1.BalloonTipText = _balloonTipText;
+            notifyIcon1.Text = _balloonTipText;
             if (_password.Length > 0) { lockButton.Enabled = false; }
             exitButton.Visible = false;
             SetMaxVolume();
@@ -105,9 +119,25 @@ namespace QuietOnTheSetUI
             Properties.Settings.Default.Save();
             passwordTextBox.Text = string.Empty;
             confirmPasswordTextBox.Text = string.Empty;
-            notifyIcon1.BalloonTipText = $"No maximum volume is current set";
+            notifyIcon1.BalloonTipText = _balloonTipText;
+            notifyIcon1.Text = _balloonTipText;
             exitButton.Visible = true;
             _password = string.Empty;
+        }
+
+        private string _balloonTipText
+        {
+            get
+            {
+                if (_isLocked)
+                {
+                    return $"Maximum volume locked at {volumeTrackBar.Value}";
+                }
+                else
+                {
+                    return $"No maximum volume is currently set";
+                }
+            }
         }
 
         private void SetMaxVolume()
@@ -190,22 +220,10 @@ namespace QuietOnTheSetUI
             frm.Show();
             MaxmizedFromTray();
         }
-        private void MinimzedTray()
-        {
-            notifyIcon1.Visible = true;
-            notifyIcon1.Icon = SystemIcons.Application;
-
-            notifyIcon1.BalloonTipText = "Minimized";
-            notifyIcon1.BalloonTipTitle = "Your Application is Running in BackGround";
-            notifyIcon1.ShowBalloonTip(500);
-        }
 
         private void MaxmizedFromTray()
         {
             notifyIcon1.Visible = true;
-            notifyIcon1.BalloonTipText = "Maximized";
-            notifyIcon1.BalloonTipTitle = "Application is Running in Foreground";
-            notifyIcon1.ShowBalloonTip(500);
         }
 
         private void exitButton_Click(object sender, EventArgs e)

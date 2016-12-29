@@ -46,6 +46,7 @@
             this.maxVolumeLabel = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.footerLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.volumeTrackBar)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -54,7 +55,7 @@
             // volumeTrackBar
             // 
             this.volumeTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.volumeTrackBar.Location = new System.Drawing.Point(0, 33);
+            this.volumeTrackBar.Location = new System.Drawing.Point(0, 32);
             this.volumeTrackBar.Maximum = 100;
             this.volumeTrackBar.Name = "volumeTrackBar";
             this.volumeTrackBar.Size = new System.Drawing.Size(767, 45);
@@ -228,11 +229,24 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // footerLabel
+            // 
+            this.footerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.footerLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.footerLabel.Location = new System.Drawing.Point(0, 396);
+            this.footerLabel.Name = "footerLabel";
+            this.footerLabel.Size = new System.Drawing.Size(767, 15);
+            this.footerLabel.TabIndex = 15;
+            this.footerLabel.Text = "v1.0.10 Built on December 29, 2016";
+            this.footerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(763, 425);
+            this.ClientSize = new System.Drawing.Size(763, 418);
+            this.Controls.Add(this.footerLabel);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.panel2);
@@ -243,9 +257,11 @@
             this.Controls.Add(this.confirmPasswordTextBox);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.lockButton);
-            this.Controls.Add(this.volumeTrackBar);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.volumeTrackBar);
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Quiet on the Set";
             ((System.ComponentModel.ISupportInitialize)(this.volumeTrackBar)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -274,6 +290,7 @@
         private System.Windows.Forms.Label maxVolumeLabel;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label footerLabel;
     }
 }
 
