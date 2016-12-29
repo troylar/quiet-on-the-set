@@ -6,6 +6,7 @@
 #define MyAppPublisher "Calvinware"
 #define MyAppURL "http://www.calvinware.com/"
 #define MyAppExeName "QuietOnTheSetUI.exe"
+#define BinFolder "QuietOnTheSetUI\bin\Release"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -42,5 +43,3 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
-
-
