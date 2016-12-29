@@ -227,7 +227,7 @@ namespace QuietOnTheSetUI
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            var response = MessageBox.Show("This will completely shut down the volume control so the . Are you sure you want to exit?", "Warning", MessageBoxButtons.YesNo);
+            var response = MessageBox.Show("This will completely shut down the volume control so users can set the volume as loud as they want. Are you sure you want to exit?", "Warning", MessageBoxButtons.YesNo);
             if (response == DialogResult.Yes)
             {
                 _exitAllowed = true;
