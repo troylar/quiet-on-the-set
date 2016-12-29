@@ -25,7 +25,7 @@ DisableProgramGroupPage=yes
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=yes
-InfoBeforeFile=H:\dev\github\troylar\quiet-on-the-set\LICENSE
+InfoBeforeFile=LICENSE
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
