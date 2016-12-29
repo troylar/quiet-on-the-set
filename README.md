@@ -8,7 +8,7 @@ This is a very simple Windows Forms application that lets you set a maximum valu
 ![](http://i.imgur.com/ClLeMbH.png)
 
 ## Usage ##
-1. Run the installer
+1. Run the [installer](https://s3.amazonaws.com/calvinware-installers/quiet-on-the-set-setup.exe)
 2. Use the slider to pick the maximum volume
 3. At this point, you can choose to use a password, or you can just leave it blank and click **Lock**. If you don't set a password, you only need to click **Unlock** to unlock it again. This is a simple option if you don't think you have to worry about someone messing around with trying to unlock it.
 4. At this point, you can close the app and it will minimize to the system tray. **The only way you can leave the app is to click the Exit button when it's unlocked.**
