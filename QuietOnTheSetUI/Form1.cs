@@ -222,7 +222,7 @@ namespace QuietOnTheSetUI
 
         private void MaxmizedFromTray()
         {
-            notifyIcon1.Visible = true;
+            notifyIcon1.Visible = false;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
