@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Quiet on the Set</id>
+    <version>1.0.0</version>
+    <authors>Troy Larson</authors>
+    <owners>Troy Larson</owners>
+    <licenseUrl>https://github.com/troylar/quiet-on-the-set/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/troylar/quiet-on-the-set</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Octopus installation package</description>
+    <copyright>Copyright 2017</copyright>
+    <dependencies>
+      <dependency id="SampleDependency" version="1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+      <file src="output\setup.exe" target="bin" />
+  </files>
+</package>
