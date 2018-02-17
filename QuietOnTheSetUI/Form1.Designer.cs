@@ -45,7 +45,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.maxVolumeLabel = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.autoStartCheckbox = new System.Windows.Forms.CheckBox();
             this.footerLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.volumeTrackBar)).BeginInit();
             this.panel1.SuspendLayout();
@@ -216,17 +216,17 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // checkBox1
+            // autoStartCheckbox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(365, 363);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(272, 30);
-            this.checkBox1.TabIndex = 14;
-            this.checkBox1.Text = "Start automatically on login";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.autoStartCheckbox.AutoSize = true;
+            this.autoStartCheckbox.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoStartCheckbox.Location = new System.Drawing.Point(365, 363);
+            this.autoStartCheckbox.Name = "autoStartCheckbox";
+            this.autoStartCheckbox.Size = new System.Drawing.Size(272, 30);
+            this.autoStartCheckbox.TabIndex = 14;
+            this.autoStartCheckbox.Text = "Start automatically on login";
+            this.autoStartCheckbox.UseVisualStyleBackColor = true;
+            this.autoStartCheckbox.CheckedChanged += new System.EventHandler(this.autoStartCheckbox_CheckedChanged);
             // 
             // footerLabel
             // 
@@ -246,7 +246,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(763, 418);
             this.Controls.Add(this.footerLabel);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.autoStartCheckbox);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label3);
@@ -288,7 +288,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label maxVolumeLabel;
         private System.Windows.Forms.Button exitButton;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox autoStartCheckbox;
         private System.Windows.Forms.Label footerLabel;
     }
 }

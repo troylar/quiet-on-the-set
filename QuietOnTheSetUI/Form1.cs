@@ -234,12 +234,12 @@ namespace QuietOnTheSetUI
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void autoStartCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             RegistryKey rk = Registry.CurrentUser.OpenSubKey
                 ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
-            if (checkBox1.Checked)
+            if (autoStartCheckbox.Checked)
             {
                 rk.SetValue("QuietOnTheSet", Application.ExecutablePath.ToString());
             }
