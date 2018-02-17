@@ -38,6 +38,11 @@ namespace QuietOnTheSetUI
             _password = Properties.Settings.Default["UnlockCode"].ToString();
             currentVolumeLabel.Text = Convert.ToInt16(mmDevice.AudioEndpointVolume.MasterVolumeLevelScalar * 100).ToString();
             notifyIcon1.BalloonTipTitle = $"Quiet on the Set";
+
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey
+                ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            autoStartCheckbox.Checked = rk.GetValue("QuietOnTheSet") != null;
+
             if (_isLocked)
             {
                 LockVolume(true);
