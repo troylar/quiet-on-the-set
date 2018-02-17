@@ -81,8 +81,6 @@ namespace QuietOnTheSetUI
             {
                 e.Cancel = true;
                 this.WindowState = FormWindowState.Minimized;
-                this.ShowInTaskbar = false;
-                Hide();
             }
         }
 
@@ -214,9 +212,10 @@ namespace QuietOnTheSetUI
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            // Show must be called before setting WindowState,
+            // otherwise the window loses its size and position
+            this.Show();
             this.WindowState = FormWindowState.Normal;
-            Form1 frm = new Form1();
-            frm.Show();
             MaxmizedFromTray();
         }
 
