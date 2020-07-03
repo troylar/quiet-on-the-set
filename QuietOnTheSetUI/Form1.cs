@@ -29,6 +29,10 @@ namespace QuietOnTheSetUI
         {
             InitializeComponent();
             //            Bitmap applicationIcon = QuietOnTheSetUI.Properties.Resources.appicon;
+
+            checkBox1.Checked = Convert.ToBoolean(_qotsRegistryKey.GetValue("startAutomatically"));
+            checkBox2.Checked = Convert.ToBoolean(_qotsRegistryKey.GetValue("startMinimized"));
+
             this.Icon = QuietOnTheSetUI.Properties.Resources.appicon;
             mmDevice = MMDE.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
             notifyIcon1.Icon = QuietOnTheSetUI.Properties.Resources.appicon;
