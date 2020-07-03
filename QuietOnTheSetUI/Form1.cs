@@ -30,8 +30,21 @@ namespace QuietOnTheSetUI
             InitializeComponent();
             //            Bitmap applicationIcon = QuietOnTheSetUI.Properties.Resources.appicon;
 
-            checkBox1.Checked = Convert.ToBoolean(_qotsRegistryKey.GetValue("startAutomatically"));
-            checkBox2.Checked = Convert.ToBoolean(_qotsRegistryKey.GetValue("startMinimized"));
+            //  The registry keys are ignored if they can't be converted or retrieved.
+            try
+            {
+                checkBox1.Checked = Convert.ToBoolean(_qotsRegistryKey.GetValue("startAutomatically"));
+                checkBox2.Checked = Convert.ToBoolean(_qotsRegistryKey.GetValue("startMinimized"));
+                if(checkBox2.Checked)
+                {
+                    this.WindowState = FormWindowState.Minimized;
+                }
+            }
+            catch (Exception)
+            {
+                checkBox1.Checked = false;
+                checkBox2.Checked = false;
+            }
 
             this.Icon = QuietOnTheSetUI.Properties.Resources.appicon;
             mmDevice = MMDE.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
