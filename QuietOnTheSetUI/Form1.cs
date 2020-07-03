@@ -22,8 +22,8 @@ namespace QuietOnTheSetUI
         private string _password;
         private int _maxVolume;
         private bool _exitAllowed = false;
-        private RegistryKey rk = Registry.CurrentUser.OpenSubKey
-                ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+        private RegistryKey _qotsRegistryKey = Registry.CurrentUser.CreateSubKey
+                ("SOFTWARE\\QuietOnTheSet");
 
         public Form1()
         {
@@ -238,6 +238,9 @@ namespace QuietOnTheSetUI
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey
+                ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
             if (checkBox1.Checked)
             {
                 rk.SetValue("QuietOnTheSet", Application.ExecutablePath.ToString());
@@ -246,17 +249,13 @@ namespace QuietOnTheSetUI
             {
                 rk.DeleteValue("QuietOnTheSet", false);
             }
+
+            _qotsRegistryKey.SetValue("startAutomatically", checkBox1.Checked);
         }
+
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked)
-            {
-                //  rk.SetValue("QuietOnTheSet_StartMinimized", true);
-            }
-            else
-            {
-                //  rk.DeleteValue("QuietOnTheSet_StartMinimized", false);
-            }
+            _qotsRegistryKey.SetValue("startMinimized", checkBox2.Checked);
         }
     }
 }
