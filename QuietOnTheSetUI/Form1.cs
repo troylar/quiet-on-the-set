@@ -38,6 +38,7 @@ namespace QuietOnTheSetUI
                 if(checkBox2.Checked)
                 {
                     this.WindowState = FormWindowState.Minimized;
+                    this.ShowInTaskbar = false;
                 }
             }
             catch (Exception)
