@@ -36,6 +36,9 @@ namespace QuietOnTheSetUI
                 {
                     this.WindowState = FormWindowState.Minimized;
                     this.ShowInTaskbar = false;
+                    //  The volume is automatically locked if the app is minimized 
+                    Properties.Settings.Default["IsLocked"] = true;
+                    Properties.Settings.Default.Save();
                 }
             }
             catch (Exception)
