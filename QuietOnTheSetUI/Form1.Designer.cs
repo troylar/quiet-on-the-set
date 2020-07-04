@@ -272,6 +272,7 @@
             this.Controls.Add(this.lockButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.volumeTrackBar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

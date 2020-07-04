@@ -85,12 +85,14 @@ namespace QuietOnTheSetUI
         {
             if (FormWindowState.Minimized == this.WindowState)
             {
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;  // Hide QOTS from alt+tab
                 notifyIcon1.Visible = true;
                 notifyIcon1.ShowBalloonTip(500);
                 this.Hide();
             }
             else if (FormWindowState.Normal == this.WindowState)
             {
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
                 notifyIcon1.Visible = false;
             }
         }
