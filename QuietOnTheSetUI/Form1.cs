@@ -22,20 +22,17 @@ namespace QuietOnTheSetUI
         private string _password;
         private int _maxVolume;
         private bool _exitAllowed = false;
-        private RegistryKey _qotsRegistryKey = Registry.CurrentUser.CreateSubKey
-                ("SOFTWARE\\QuietOnTheSet");
 
         public Form1()
         {
             InitializeComponent();
             //            Bitmap applicationIcon = QuietOnTheSetUI.Properties.Resources.appicon;
 
-            //  The registry keys are ignored if they can't be converted or retrieved.
             try
             {
-                checkBox1.Checked = Convert.ToBoolean(_qotsRegistryKey.GetValue("startAutomatically"));
-                checkBox2.Checked = Convert.ToBoolean(_qotsRegistryKey.GetValue("startMinimized"));
-                if(checkBox2.Checked)
+                checkBox1.Checked = Convert.ToBoolean(Properties.Settings.Default["StartAutomatically"]);
+                checkBox2.Checked = Convert.ToBoolean(Properties.Settings.Default["StartMinimized"]);
+                if (checkBox2.Checked)
                 {
                     this.WindowState = FormWindowState.Minimized;
                     this.ShowInTaskbar = false;
@@ -104,7 +101,7 @@ namespace QuietOnTheSetUI
             }
         }
 
-        internal void LockVolume (bool initializing=false)
+        internal void LockVolume(bool initializing = false)
         {
             _isLocked = true;
             lockButton.Text = "Unlock";
@@ -168,13 +165,13 @@ namespace QuietOnTheSetUI
         private void AudioEndpointVolume_OnVolumeNotification(AudioVolumeNotificationData data)
         {
             var newVolume = Convert.ToInt16(data.MasterVolume * 100);
-            if (_isLocked && newVolume >  _maxVolume)
+            if (_isLocked && newVolume > _maxVolume)
             {
                 SetMaxVolume();
             }
             if (currentVolumeLabel.InvokeRequired)
             {
-                currentVolumeLabel.Invoke(new MethodInvoker(delegate { currentVolumeLabel.Text = newVolume.ToString() ; }));
+                currentVolumeLabel.Invoke(new MethodInvoker(delegate { currentVolumeLabel.Text = newVolume.ToString(); }));
             }
         }
 
@@ -268,12 +265,14 @@ namespace QuietOnTheSetUI
                 rk.DeleteValue("QuietOnTheSet", false);
             }
 
-            _qotsRegistryKey.SetValue("startAutomatically", checkBox1.Checked);
+            Properties.Settings.Default["StartAutomatically"] = checkBox1.Checked;
+            Properties.Settings.Default.Save();
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            _qotsRegistryKey.SetValue("startMinimized", checkBox2.Checked);
+            Properties.Settings.Default["StartMinimized"] = checkBox2.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }
