@@ -34,8 +34,9 @@ namespace QuietOnTheSetUI
                 checkBox2.Checked = Convert.ToBoolean(Properties.Settings.Default["StartMinimized"]);
                 if (checkBox2.Checked)
                 {
-                    this.WindowState = FormWindowState.Minimized;
-                    this.ShowInTaskbar = false;
+                    //  Hides the app completely
+                    Form1_FormClosing(null, new FormClosingEventArgs(new CloseReason(), true));
+
                     //  The volume is automatically locked if the app is minimized 
                     Properties.Settings.Default["IsLocked"] = true;
                     Properties.Settings.Default.Save();
