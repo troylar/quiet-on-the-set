@@ -116,7 +116,7 @@ namespace QuietOnTheSetUI
             }
             else if (FormWindowState.Normal == this.WindowState)
             {
-                //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
                 notifyIcon1.Visible = false;
             }
         }
