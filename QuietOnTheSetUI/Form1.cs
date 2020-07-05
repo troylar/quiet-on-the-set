@@ -23,6 +23,29 @@ namespace QuietOnTheSetUI
         private int _maxVolume;
         private bool _exitAllowed = false;
 
+        // Removes the app from Alt+Tab window if minimized
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var Params = base.CreateParams;
+                if (FormWindowState.Minimized == this.WindowState)
+                {
+                    Params.ExStyle |= 0x80;
+                }
+                return Params;
+            }
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                base.OnShown(e);
+                Hide();
+            }
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -32,20 +55,21 @@ namespace QuietOnTheSetUI
             {
                 checkBox1.Checked = Convert.ToBoolean(Properties.Settings.Default["StartAutomatically"]);
                 checkBox2.Checked = Convert.ToBoolean(Properties.Settings.Default["StartMinimized"]);
-                if (checkBox2.Checked)
-                {
-                    //  Hides the app completely
-                    Form1_FormClosing(null, new FormClosingEventArgs(new CloseReason(), true));
-
-                    //  The volume is automatically locked if the app is minimized 
-                    Properties.Settings.Default["IsLocked"] = true;
-                    Properties.Settings.Default.Save();
-                }
             }
             catch (Exception)
             {
                 checkBox1.Checked = false;
                 checkBox2.Checked = false;
+            }
+
+            if (checkBox2.Checked)
+            {
+                //  Hides the app completely
+                Form1_FormClosing(null, new FormClosingEventArgs(new CloseReason(), true));
+
+                //  The volume is automatically locked if the app is minimized 
+                Properties.Settings.Default["IsLocked"] = true;
+                Properties.Settings.Default.Save();
             }
 
             this.Icon = QuietOnTheSetUI.Properties.Resources.appicon;
@@ -86,14 +110,13 @@ namespace QuietOnTheSetUI
         {
             if (FormWindowState.Minimized == this.WindowState)
             {
-                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;  // Hide QOTS from alt+tab
                 notifyIcon1.Visible = true;
                 notifyIcon1.ShowBalloonTip(500);
                 this.Hide();
             }
             else if (FormWindowState.Normal == this.WindowState)
             {
-                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+                //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
                 notifyIcon1.Visible = false;
             }
         }
