@@ -23,10 +23,55 @@ namespace QuietOnTheSetUI
         private int _maxVolume;
         private bool _exitAllowed = false;
 
+        // Removes the app from Alt+Tab window if minimized
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var Params = base.CreateParams;
+                if (FormWindowState.Minimized == this.WindowState)
+                {
+                    Params.ExStyle |= 0x80;
+                }
+                return Params;
+            }
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                base.OnShown(e);
+                Hide();
+            }
+        }
+
         public Form1()
         {
             InitializeComponent();
             //            Bitmap applicationIcon = QuietOnTheSetUI.Properties.Resources.appicon;
+
+            try
+            {
+                checkBox1.Checked = Convert.ToBoolean(Properties.Settings.Default["StartAutomatically"]);
+                checkBox2.Checked = Convert.ToBoolean(Properties.Settings.Default["StartMinimized"]);
+            }
+            catch (Exception)
+            {
+                checkBox1.Checked = false;
+                checkBox2.Checked = false;
+            }
+
+            if (checkBox2.Checked)
+            {
+                //  Hides the app completely
+                Form1_FormClosing(null, new FormClosingEventArgs(new CloseReason(), true));
+
+                //  The volume is automatically locked if the app is minimized 
+                Properties.Settings.Default["IsLocked"] = true;
+                Properties.Settings.Default.Save();
+            }
+
             this.Icon = QuietOnTheSetUI.Properties.Resources.appicon;
             mmDevice = MMDE.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
             notifyIcon1.Icon = QuietOnTheSetUI.Properties.Resources.appicon;
@@ -71,6 +116,7 @@ namespace QuietOnTheSetUI
             }
             else if (FormWindowState.Normal == this.WindowState)
             {
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
                 notifyIcon1.Visible = false;
             }
         }
@@ -84,7 +130,7 @@ namespace QuietOnTheSetUI
             }
         }
 
-        internal void LockVolume (bool initializing=false)
+        internal void LockVolume(bool initializing = false)
         {
             _isLocked = true;
             lockButton.Text = "Unlock";
@@ -148,13 +194,13 @@ namespace QuietOnTheSetUI
         private void AudioEndpointVolume_OnVolumeNotification(AudioVolumeNotificationData data)
         {
             var newVolume = Convert.ToInt16(data.MasterVolume * 100);
-            if (_isLocked && newVolume >  _maxVolume)
+            if (_isLocked && newVolume > _maxVolume)
             {
                 SetMaxVolume();
             }
             if (currentVolumeLabel.InvokeRequired)
             {
-                currentVolumeLabel.Invoke(new MethodInvoker(delegate { currentVolumeLabel.Text = newVolume.ToString() ; }));
+                currentVolumeLabel.Invoke(new MethodInvoker(delegate { currentVolumeLabel.Text = newVolume.ToString(); }));
             }
         }
 
@@ -247,6 +293,15 @@ namespace QuietOnTheSetUI
             {
                 rk.DeleteValue("QuietOnTheSet", false);
             }
+
+            Properties.Settings.Default["StartAutomatically"] = checkBox1.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default["StartMinimized"] = checkBox2.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }
