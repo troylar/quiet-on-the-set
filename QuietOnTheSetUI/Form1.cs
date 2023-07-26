@@ -137,21 +137,24 @@ namespace QuietOnTheSetUI
             volumeTrackBar.Enabled = false;
             if (!initializing)
             {
-                _maxVolume = volumeTrackBar.Value;
+				_password = passwordTextBox.Text;
+				_maxVolume = volumeTrackBar.Value;
                 Properties.Settings.Default["MaxVolume"] = _maxVolume.ToString();
                 Properties.Settings.Default["IsLocked"] = true;
                 Properties.Settings.Default["UnlockCode"] = passwordTextBox.Text;
                 Properties.Settings.Default.Save();
             }
-            _password = passwordTextBox.Text;
-            passwordTextBox.Text = string.Empty;
-            confirmPasswordTextBox.Text = string.Empty;
-            notifyIcon1.BalloonTipText = _balloonTipText;
-            notifyIcon1.Text = _balloonTipText;
-            if (_password.Length > 0) { lockButton.Enabled = false; }
-            exitButton.Visible = false;
-            SetMaxVolume();
+			{
+				passwordTextBox.Text = string.Empty;
+				confirmPasswordTextBox.Text = string.Empty;
+				notifyIcon1.BalloonTipText = _balloonTipText;
+				notifyIcon1.Text = _balloonTipText;
+				if (_password.Length > 0) { lockButton.Enabled = false; }
+				exitButton.Visible = false;
+				SetMaxVolume();
+			}
         }
+		
         internal void UnlockVolume()
         {
             _isLocked = false;
